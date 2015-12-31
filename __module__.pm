@@ -9,9 +9,9 @@ key_auth;
 desc 'Add in the ssh keys for root';
 task 'setup', sub { 
 
-	my $user   = param_lookup "user" "root";   # Ignored
+	my $user   = param_lookup "user", "root";   # Ignored
 	my $sshkey = param_lookup "sshkey";        # Required
-	my $home   = param_lookup "home" "/root/"; # Optional
+	my $home   = param_lookup "home", "/root/"; # Optional
 	
 	my $authorized_keys_file = "$home/.ssh/authorized_keys";
 
