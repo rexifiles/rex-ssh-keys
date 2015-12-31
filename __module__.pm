@@ -1,5 +1,6 @@
 package Rex::Ssh::Keys;
 use Rex -base;
+use Rex::Ext::ParamLookup;
 
 user 'root';
 key_auth;
