@@ -1,22 +1,27 @@
 package Rex::Ssh::Keys;
 use Rex -base;
-use Rex::Ext::ParamLookup;
 
 user 'root';
 key_auth;
 
-# Usage: rex setup ( user => "root" home => "/root" sshkey => "ssh-rsa AAAAAAAAAAA ... user@place" )
+# Usage: rex install - This is for root keys only while I wait for multiple options for ssh keys from rex
 
-desc 'Add in the ssh keys for my user';
+desc 'Add in the ssh keys for root';
 task 'setup', sub { 
 
-	my $user     = param_lookup "user";
-	my $home     = param_lookup "home";
-	my $sshkey   = param_lookup "sshkey";
+	my $user   = param_lookup "user", "root";  # Ignored
+	my $sshkey = param_lookup "sshkey";        # Required
+	my $home   = param_lookup "home" "/root/"; # Optional
 	
-	account "$user",
-		home    => "$home";
-		ssh_key => "$sshkey";
+	my $authorized_keys_file = "$home/.ssh/authorized_keys";
+
+	file "$authorized_keys_file",
+	ensure => "directory",
+	owner  => "$user",
+	group  => "$user";
+
+	append_if_no_such_line "$authorized_keys_file", "$sshkey", 
+		on_change => sub { echo "Added ssh key"; };
 
 };
 
