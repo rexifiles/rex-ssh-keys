@@ -1,0 +1,6 @@
+Name: Rex::Ssh::Keys
+Description: Installs keys for your users
+Author: xarlos <xarlos@xarlos.me>
+License: Apache 2.0
+Require:
+  - Rex::Ext::ParamLookup
