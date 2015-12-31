@@ -22,7 +22,7 @@ task 'setup', sub {
 	group  => "$user";
 
 	append_if_no_such_line "$authorized_keys_file", "$sshkey", 
-		on_change => sub { echo "Added ssh key"; };
+		on_change => sub { Rex::Logger::info "New key added for $user", 'info'; };
 
 };
 
