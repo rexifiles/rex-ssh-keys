@@ -1,4 +1,4 @@
-package Rex::Ssh::Rootkeys;
+package Rex::Ssh::Keys;
 use Rex -base;
 use Rex::Ext::ParamLookup;
 
