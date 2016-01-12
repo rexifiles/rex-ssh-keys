@@ -12,12 +12,17 @@ task 'setup', sub {
 
 	my $user   = param_lookup "user", "root";   # Ignored
 	my $sshkey = param_lookup "sshkey";        # Required
-	my $home   = param_lookup "home", "/root/"; # Optional
+	my $home   = param_lookup "home", "/root"; # Optional
 	
 	my $authorized_keys_file = "$home/.ssh/authorized_keys";
 
-	file "$authorized_keys_file",
+	file "$home/.ssh",
 	ensure => "directory",
+	owner  => "$user",
+	group  => "$user";
+
+	file "$authorized_keys_file",
+	ensure => "file",
 	owner  => "$user",
 	group  => "$user";
 
